@@ -94,8 +94,8 @@ table {
     }
 }
 
-#modalAdd {
-    position: absolute;
+#modalAdd, #modalEdit {
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -115,13 +115,16 @@ table {
 
         width: 350px;
 
-        input,
-        select {
+        input,select {
             border: 1px solid #000;
             border-radius: 10px;
             padding: 12px 20px;
             outline-color: #007FFF;
             font-size: 18px;
+        }
+
+        input {
+            white-space: wrap;
         }
 
         button {
@@ -145,10 +148,20 @@ table {
             scale: 1;
             background-color: #007FFF;
         }
+
+        .deleteTask {
+            background-color: #E70000;
+        }
+        .deleteTask:hover {
+            background-color: #a70000;
+        }
+        .deleteTask:active {
+            background-color: #E70000;
+        }
     }
 }
 
-.crossAdd {
+.crossAdd, .crossEdit {
     position: absolute;
     top: 10px;
     right: 20px;

@@ -1,8 +1,10 @@
-import { GridReload, TableReload } from "./ui.js"
+
+import { GridReload, TableReload, id } from "./ui.js"
 
 const modalAdd = document.querySelector('#modalAdd')
 const formAdd = document.forms.addTaskForm
 const AddInps = formAdd.querySelectorAll('input')
+
 const tbody = document.querySelector('tbody')
 const table = document.querySelector('table')
 const grid = document.querySelector('.grid')
@@ -44,12 +46,12 @@ formAdd.onsubmit = (e) => {
     let value = {}
     let errors = 0
     AddInps.forEach(inp => {
-        if(inp.value === '') {
+        if (inp.value === '') {
             ++errors
         }
     })
 
-    if(errors === 0) {
+    if (errors === 0) {
         new FormData(formAdd).forEach((val, key) => {
             value[key] = val
         })
@@ -61,16 +63,74 @@ formAdd.onsubmit = (e) => {
                 "Content-Type": "application/json"
             }
         })
-
-        fetch(url)
-        
-        fetch(url)
-           .then(res => res.json())
-           .then(res => {
-            TableReload(res, tbody)
-            GridReload(res, grid)
-           })
+            .then(res => {
+                if (res.status === 200 || res.status === 201) {
+                    GET_DATA()
+                }
+            })
 
         modalAdd.close()
     }
 }
+
+GET_DATA()
+
+function GET_DATA() {
+    fetch(url)
+        .then(res => res.json())
+        .then(res => {
+            TableReload(res, tbody)
+            GridReload(res, grid)
+        })
+}
+
+const editModal = document.querySelector('#modalEdit')
+const closeEditTask = document.querySelector('.crossEdit')
+const deleteTask = document.querySelector('.deleteTask')
+const editForm = document.forms.EditTaskForm
+
+closeEditTask.onclick = () => {
+    editModal.close()
+}
+
+editForm.onsubmit = (e) => {
+    e.preventDefault()
+    let editedTask = {
+        id: id,
+    }
+
+    new FormData(editForm).forEach((key, value) => {
+        editedTask[value] = key
+    })
+
+    console.log(editedTask);
+    fetch(url + `/${id}`, {
+        method: "put",
+        body: JSON.stringify(editedTask),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => {
+            if (res.status === 200 || res.status === 201) {
+                GET_DATA()
+            }
+        })
+
+    editModal.close()
+}
+
+deleteTask.onclick = () => {
+    fetch(url + `/${id}`, {
+        method: "delete"
+    })
+        .then(res => {
+            if (res.status === 200 || res.status === 201) {
+                GET_DATA()
+            }
+        })
+
+    editModal.close()
+}
+
+

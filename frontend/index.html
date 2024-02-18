@@ -35,18 +35,7 @@
             </tbody>
         </table>
 
-        <div class="grid hide">
-            <div class="card">
-                <h1 class="card-title">Переписать проект на Vue 3</h1>
-                <p class="card-desc">Quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto</p>
-                <h4 class="date-box">
-                    <span class="card-date">01.01.1111</span> 
-                    <span class="card-time">66:66</span>
-                </h4>
-
-                <h3 class="card-status">Completed</h3>
-            </div>
-        </div>
+        <div class="grid hide"></div>
     </div>
 
     <dialog class="fade" id="modalAdd"> 
@@ -65,6 +54,27 @@
                     <option value="done">Завершено</option>
                 </select>
                 <button>Добавить</button>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog class="fade" id="modalEdit"> 
+        <div class="modal">
+            <h1 class="crossEdit">&Cross;</h1>
+            <h1>Изменить</h1>
+
+            <form name="EditTaskForm">
+                <input name="title" placeholder="Загаловок" type="text">
+                <input name="description" placeholder="Описание" type="text">
+                <input name="time" placeholder="Время" type="time">
+                <input name="date" placeholder="Дата" type="date">
+                <select name="status">
+                    <option value="new">Не завершено</option>
+                    <option value="progress">В прогрессе</option>
+                    <option value="done">Завершено</option>
+                </select>
+                <button>Изменить</button>
+                <button type="button" class="deleteTask">Удалить</button>
             </form>
         </div>
     </dialog>

@@ -1,4 +1,9 @@
 
+const editModal = document.querySelector('#modalEdit')
+const editForm = document.forms.EditTaskForm
+const editFormInps = editForm.querySelectorAll('input')
+const editFormSelect = editForm.querySelector('select')
+export let id 
 export function TableReload(arr, place) {
     place.innerHTML = ''
 
@@ -29,6 +34,19 @@ export function TableReload(arr, place) {
         } else if(item.status === "done") {
             statusView.innerHTML = "Готово"
             statusView.style.color = "#000"
+        }
+
+        // functions
+
+        titleView.ondblclick = () => {
+            editModal.showModal()
+
+            editFormInps.forEach(inp => {
+                inp.value = item[inp.name]
+            })
+            editFormSelect.value = item.status
+
+            id = item.id
         }
     }
 }
@@ -72,16 +90,16 @@ export function GridReload(arr, place) {
             statusView.innerHTML = "Готово"
             statusView.style.color = "#000"
         }
+
+        card.ondblclick = () => {
+            editModal.showModal()
+
+            editFormInps.forEach(inp => {
+                inp.value = item[inp.name]
+            })
+            editFormSelect.value = item.status
+
+            id = item.id
+        }
     }
 }
-
-/* <div class="card">
-    <h1 class="card-title">Переписать проект на Vue 3</h1>
-    <p class="card-desc">Quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto</p>
-    <h4>
-        <span class="card-date">01.01.1111</span> 
-        <span class="card-time">66:66</span>
-    </h4>
-
-    <h3 class="card-status">Completed</h3>
-</div> */
